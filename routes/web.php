@@ -9,14 +9,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
 
     $posts = Post::latest()->with(['category', 'user'])->get();
+    $categories = Category::all();
 
-    return view('demo.posts', [
-        'posts' => $posts
+    return view('posts', [
+        'posts' => $posts,
+        'categories' => $categories
     ]);
 });
 
 Route::get('post/{post:slug}', function (Post $post) {
-    return view('demo.post', [
+    return view('post', [
         'post' => $post
     ]);
 });
@@ -25,8 +27,11 @@ Route::get('post/{post:slug}', function (Post $post) {
 
 Route::get('categories/{category:slug}', function (Category $category) {
 
-    return view('demo.posts', [
-        'posts' => $category->posts->load(['category','user']) 
+    $categories = Category::all();
+
+    return view('posts', [
+        'posts' => $category->posts->load(['category', 'user']),
+        'categories' => $categories
     ]);
 });
 
@@ -34,7 +39,9 @@ Route::get('categories/{category:slug}', function (Category $category) {
 
 Route::get('users/{user:username}', function (User $user) {
 
-    return view('demo.posts', [
-        'posts' => $user->posts->load(['category','user']) 
+    $categories = Category::all();
+    return view('posts', [
+        'posts' => $user->posts->load(['category', 'user']),
+        'categories' => $categories
     ]);
 });
