@@ -1,0 +1,46 @@
+searching in worst way inside
+
+$posts = Post::latest() ;
+
+if (request('search')) {
+$posts->where('title', 'like', '%' . request('search') . '%')
+->orWhere('body', 'like', '%' . request('search') . '%');
+}
+
+// $posts = Post::latest()->with(['category', 'user'])->get();
+$categories = Category::all()                                  ;
+
+return view('posts', [
+'posts' => $posts->get(),
+'categories' => $categories
+])                          ;
+
+best way way with query scope
+
+here our controller code
+
+public function index()
+{
+// dd(request('search')) ;
+
+$posts = Post::latest()->filter(request(['search']));
+
+// $posts = Post::latest()->with(['category', 'user'])->get();
+$categories = Category::all() ;
+
+return view('posts', [
+'posts' => $posts->get(),
+'categories' => $categories
+]) ;
+}
+
+here our query scope code for filter method
+
+public function scopeFilter($query , array $filters)
+{ //this scope's name will filter() only
+
+if (request('search') ?? false) {
+$query->where('title', 'like', '%' . request('search') . '%')
+->orWhere('body', 'like', '%' . request('search') . '%');
+}
+}

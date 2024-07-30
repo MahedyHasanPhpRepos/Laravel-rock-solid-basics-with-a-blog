@@ -17,14 +17,26 @@ class Post extends Model
     ];
 
 
-    // protected $with = ['category', 'user'] ; 
 
-    public function category(){
-        return $this->belongsTo(Category::class) ; 
+    public function scopeFilter($query , array $filters)
+    { //this scope's name will filter() only 
+
+        if (request('search') ?? false) {
+            $query->where('title', 'like', '%' . request('search') . '%')
+                ->orWhere('body', 'like', '%' . request('search') . '%');
+        }
     }
 
-    public function user(){
-        return $this->belongsTo(User::class) ; 
+    // protected $with = ['category', 'user'] ; 
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 
 
