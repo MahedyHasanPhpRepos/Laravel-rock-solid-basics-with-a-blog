@@ -9,6 +9,8 @@
 
             <x-posts-grid :posts="$posts"/>
 
+            {{ $posts->links() }}
+
         @else
         <p>No Post Yet</p>
         @endif

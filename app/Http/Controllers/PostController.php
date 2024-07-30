@@ -12,7 +12,7 @@ class PostController extends Controller
     {
         // dd(request('search')) ; 
 
-        $posts = Post::latest()->filter(request(['search']));
+        $posts = Post::latest()->filter(request(['search', 'category']));
 
 
 
@@ -20,9 +20,10 @@ class PostController extends Controller
         $categories = Category::all();
 
         return view('posts', [
-            'posts' => $posts->get(),
-            'categories' => $categories
-        ]);
+            'posts' => $posts->paginate(3),
+            'categories' => $categories,
+            'currentCategory' => Category::firstWhere('slug', request('slug'))
+        ]); 
     }
 
     public function show(Post $post)
