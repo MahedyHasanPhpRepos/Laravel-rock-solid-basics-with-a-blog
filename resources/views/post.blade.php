@@ -1,5 +1,6 @@
 <x-layout>
 
+
     <main class="max-w-6xl mx-auto mt-10 lg:mt-20 space-y-6">
         <article class="max-w-4xl mx-auto lg:grid lg:grid-cols-12 gap-x-10">
             <div class="col-span-4 lg:text-center lg:pt-14 mb-10">
@@ -55,7 +56,42 @@
                     </p>
                 </div>
             </div>
+
+            <section class="col-start-5 col-span-8 mt-10 space-y-6">
+
+                <x-panel>
+                    <form action="/post/{{$post->slug}}/comment" method="post">
+                        @csrf
+
+
+                        <header class="flex space-x-3">
+
+                            <img src="https://i.pravatar.cc/60/?u={{auth()->id()}}" alt="user_image" class="rounded-md">
+
+                            <h2>Want To Participate</h2>
+                        </header>
+
+                        <div class="mt-6">
+                            <textarea name="body" class="w-full text-sm focus:outline-none focus:ring p-3 rounded-md" col="30" row="10" id="body" placeholder="please write your comment"></textarea>
+                        </div>
+
+                        <div class="flex justify-end">
+                            <button type="submit" class="bg-blue-500 text-white upperclass font-semibold text-xs py-2 px-10 rounded-2xl hover:bg-blue-600 mt-3">Post</button>
+                        </div>
+
+                    </form>
+                </x-panel>
+
+
+
+                @foreach ($post->comment as $comment)
+                <x-post-comment :comment="$comment" />
+                @endforeach
+
+            </section>
         </article>
+
+
     </main>
 
 </x-layout>

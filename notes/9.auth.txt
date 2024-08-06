@@ -1,7 +1,9 @@
-authentication 
+authentication
 
-RouteServiceProvider.php file and changing this line to 
+RouteServiceProvider.php file and changing this line to
 
- public const HOME = '/';
+public const HOME = '/';
 
- this will redirect user to '/' route if user is loggin and want to go register route 
+this will redirect user to '/' route if user is loggin and want to go register route
+
+

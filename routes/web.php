@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PostCommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SessionController;
@@ -22,6 +23,8 @@ Route::post('/logout' , [SessionController::class, 'destroy'])->middleware('auth
 Route::get('/login' , [SessionController::class, 'create'])->middleware('guest') ; 
 Route::post('/sessions' , [SessionController::class, 'store'])->middleware('guest') ; 
 
+
+Route::post('post/{post:slug}/comment', [PostCommentController::class, 'store']);
 
 
 Route::get('categories/{category:slug}', function (Category $category) {
