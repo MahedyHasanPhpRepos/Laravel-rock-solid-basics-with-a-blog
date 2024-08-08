@@ -13,7 +13,11 @@ class Post extends Model
         "title",
         "excerpt",
         "body",
-        'published_at'
+        'published_at',
+        'user_id',
+        'category_id',
+        'slug',
+        'thumbnail'
     ];
 
 
